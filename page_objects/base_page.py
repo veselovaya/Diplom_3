@@ -3,6 +3,7 @@ from selenium import webdriver
 
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver import ActionChains
 
 class BasePage:
     def __init__(self, driver):
@@ -31,3 +32,17 @@ class BasePage:
 
     def open_site_link(self, url):
         self.driver.get(url)
+
+    def drag_and_drop_on_element(self, locator_one, locator_two):
+        draggable = self.driver.find_element(*locator_one)
+        droppable = self.driver.find_element(*locator_two)
+        action_chains = ActionChains(self.driver)
+        action_chains.drag_and_drop(draggable, droppable).perform()
+
+
+    def get_actually_text(self, locator):
+        actually_text = self.driver.find_element(*locator).text
+        return actually_text
+
+    def wait_until_element_invisibility(self, locator):
+        WebDriverWait(self.driver, 10).until(EC.invisibility_of_element_located(locator))
