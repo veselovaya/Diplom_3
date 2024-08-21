@@ -6,12 +6,21 @@ from page_objects.base_page import BasePage
 from locators.locators import MainPageLocators, PersonalAccountLocators
 
 
-@pytest.fixture(scope='function')
-def driver():
-    browser = webdriver.Chrome()
+@pytest.fixture(params=['firefox', 'chrome'])
+def driver(request):
+    browser = None
+    if request.param ==  'firefox':
+        options = webdriver.FirefoxOptions()
+        options.add_argument('--window-size=1920,1080')
+        browser = webdriver.FirefoxOptions(options=options)
+    elif request.param == 'chrome':
+        options = webdriver.ChromeOptions()
+        options.add_argument('--window-size=1920,1080')
+        browser = webdriver.Chrome(options=options)
     browser.get(Urls.URL)
     yield browser
     browser.quit()
+
 
 
 @pytest.fixture

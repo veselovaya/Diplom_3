@@ -1,10 +1,12 @@
 from page_objects.personal_acc_page import PersonalAccountPage
 from locators.locators import MainPageLocators, PersonalAccountLocators
 from data import Urls
+import allure
+
 
 
 class TestPersonalAccount:
-
+    @allure.title('Проверка перехода в Личный кабинет с Главной')
     def test_transfer_to_personal_acc(self, driver, login):
         acc_page = PersonalAccountPage(driver)
         acc_page.wait_visibility_element(MainPageLocators.PERSONAL_ACCOUNT)
@@ -13,7 +15,7 @@ class TestPersonalAccount:
         now_page = acc_page.current_url()
         assert now_page == (Urls.PERSONAL_ACCOUNT)
 
-
+    @allure.title('Проверка перехода в раздел История заказов в ЛК')
     def test_transfer_to_order_list(self, driver, login):
         acc_page = PersonalAccountPage(driver)
         acc_page.wait_visibility_element(MainPageLocators.PERSONAL_ACCOUNT)
@@ -23,7 +25,7 @@ class TestPersonalAccount:
         now_page = acc_page.current_url()
         assert now_page == (Urls.ORDER_LIST)
 
-
+    @allure.title('Проверка логаута')
     def test_logout_user(self, driver, login):
         acc_page = PersonalAccountPage(driver)
         acc_page.wait_visibility_element(MainPageLocators.PERSONAL_ACCOUNT)

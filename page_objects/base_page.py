@@ -45,4 +45,4 @@ class BasePage:
         return actually_text
 
     def wait_until_element_invisibility(self, locator):
-        WebDriverWait(self.driver, 10).until(EC.invisibility_of_element_located(locator))
+        WebDriverWait(self.driver, 20).until(EC.invisibility_of_element_located(locator))
